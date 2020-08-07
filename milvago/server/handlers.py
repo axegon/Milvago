@@ -184,7 +184,7 @@ class HttpMlv:
             raise InvalidMediaType(
                 f"Invalid media type, you can use one of "
                 f"{', '.join(self._content_types.keys())}")
-        self._resp.content_type
+        self._resp.content_type = self._content_types[content_type]
 
     def _process(self, req, resp, **kwargs):
         """Self contained method for all GET, POST, PUT, DELETE, HEAD,

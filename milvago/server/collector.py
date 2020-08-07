@@ -134,4 +134,5 @@ class Milvago:
                 self.port,
                 self.app)
             httpd.serve_forever()
-        return self.app
+        else:
+            return self.app
