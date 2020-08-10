@@ -42,6 +42,19 @@ class HttpMlv:
         self._resp = None
         self._template_loader = None
 
+    def __repr__(self):
+        """Printing representation of the class.
+
+        Returns
+        -------
+        str"""
+        return f"<HttpMlv(\n" \
+               f"\t__route__= {self.__route__},\n" \
+               f"\tstatus = {self.status},\n" \
+               f"\theaders = {self.headers},\n" \
+               f"\turi_data = {self.uri_data},\n" \
+               f"\tstatus = {self.status}\n)>"
+
     def __getattr__(self, name):
         """Acts as a self-contained wrapper for all the on_*
         methods available in falcon.
@@ -111,6 +124,16 @@ class HttpMlv:
     def request(self):
         """For quick access to self._req"""
         return self._req
+
+    @property
+    def status(self):
+        """For quick access to self._status"""
+        return self._status
+
+    @property
+    def headers(self):
+        """For quick access to self._headers"""
+        return self._headers
 
     @property
     def response(self):
@@ -228,6 +251,16 @@ class HttpStaticDir:
         self._dir_path = dir_path
         self._uri = uri
 
+    def __repr__(self):
+        """Printing representation of the class.
+
+        Returns
+        -------
+        str"""
+        return f"<HttpStaticDir(\n" \
+               f"\tfile_path = {self.file_path}," \
+               f"\turi = {self.uri}\n)>"
+
     @property
     def file_path(self) -> str:
         """Getter for the directory path"""
@@ -283,6 +316,15 @@ class API:
                 continue
             self._append_mountpoint(handler.uri, str(handler))
         self._list_all()
+
+    def __repr__(self):
+        """Printing representation of the class.
+
+        Returns
+        -------
+        str"""
+        return f"<API(\n" \
+               f"\tmountpoints = {self._mountpoints}\n)>"
 
     def _append_mountpoint(self, route: str, class_name: str) -> None:
         """Adds all routes and classes to a property.
@@ -352,7 +394,5 @@ def expose_web(route: str, methods: str = 'get'):
             for method in methods.split(','):
                 setattr(handler, method.strip(), function)
             return handler
-
         return wrapper
-
     return decorator
