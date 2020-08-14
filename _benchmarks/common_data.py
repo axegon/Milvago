@@ -1,0 +1,1 @@
+CONTENTS = open('MOCK_DATA.json').read()
