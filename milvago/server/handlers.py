@@ -209,6 +209,19 @@ class HttpMlv:
                 f"{', '.join(self._content_types.keys())}")
         self._resp.content_type = self._content_types[content_type]
 
+    def set_custom_content_type(self, content_type: str) -> None:
+        """In case a non-standard content-type must be used.
+
+        Parameters
+        ----------
+        content_type : str
+            Self-explanatory.
+
+        Returns
+        -------
+        None"""
+        self.response.content_type = content_type
+
     def _process(self, req, resp, **kwargs):
         """Self contained method for all GET, POST, PUT, DELETE, HEAD,
         etc. methods
