@@ -1,7 +1,7 @@
 """The module creates the server and starts the application
 on a given host and port."""
 import typing
-from wsgiref import simple_server
+from werkzeug.serving import run_simple
 import falcon
 from milvago.server.handlers import HttpMlv, API
 from milvago.common.exceptions import InvalidMilvagoClassException
@@ -129,10 +129,11 @@ class Milvago:
             self._handler_list
         )
         if self._debug:
-            httpd = simple_server.make_server(
+            run_simple(
                 self.host,
                 self.port,
-                self.app)
-            httpd.serve_forever()
+                self.app,
+                use_reloader=True
+            )
         else:
             return self.app
